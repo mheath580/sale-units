@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Inventory</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem; /* Increase font size for h1 */
+
+        }
+
+        header h2 {
+            font-size: .9rem; /* Decrease font size for h2 */
+            color: #A0A0A0; /* Off-white color */
+            font-family: 'Helvetica Neue', Arial, sans-serif; /* Lighter font type */
+
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #eee;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #ccc;
+        }
+
+        nav ul li a.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Table window styles */
+        .table-window {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px; /* Adjust as needed */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 1px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Container Inventory</h1>
+        <h2>Last updated : 2 July, 2024 4:44pm CST</h2>
+    </header>
+    
+    <main>
+        <!-- Content goes here -->
+    </main>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#" id="tab1">Sale Units - DC</a></li>
+                <li><a href="#" id="tab2">Sale Units - RF</a></li>
+                <li><a href="#" id="tab3">Sale Units - OT</a></li>
+                <li><a href="#" id="tab4">Total Loss Units</a></li>
+            </ul>
+        </nav>
+
+        <!-- Table window -->
+        <div class="table-window" id="tableWindow">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Facility</th>
+                        <th>City</th>
+                        <th>Container #</th>
+                        <th>Size</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be updated via script -->
+                </tbody>
+            </table>
+        </div>
+    </footer>
+
+    <script>
+        // Sample data for each tab
+        const data = {
+            tab1: [
+                
+{facility:"CONGLOBAL", city:  "SAVANNAH", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "SAVANNAH", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "SAVANNAH", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "SAVANNAH", containerNumber:"NA", type: "DC", size:"45"},
+{facility:"CONGLOBAL-JOLIET", city:  "CHICAGO", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL-JOLIET", city:  "CHICAGO", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "CLEVELAND", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "CINCINNATI", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "DETROIT", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "DETROIT", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "DETROIT", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "DETROIT", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "DETROIT", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "DETROIT", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CLA", city:  "GRAND RAPIDS", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "LOUISVILLE", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "LOUISVILLE", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "LOUISVILLE", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"ILLINOIS TRANSPORT", city:  "MINNEAPOLIS", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"ILLINOIS TRANSPORT", city:  "MINNEAPOLIS", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"JUNG TRUCK ", city:  "ST LOUIS", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"JUNG TRUCK ", city:  "ST LOUIS", containerNumber:"NA", type: "DC", size:"45"},
+{facility:"GULF INTERMODAL", city:  "HOUSTON", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"GULF INTERMODAL", city:  "HOUSTON", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"GULF INTERMODAL", city:  "HOUSTON", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "MEMPHIS", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CHICKASAW", city:  "MOBILE", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CHICKASAW", city:  "MOBILE", containerNumber:"NA", type: "DC", size:"45"},
+{facility:"CONGLOBAL", city:  "LOS ANGELES", containerNumber:"NA", type: "DC", size:"20"},
+{facility:"CONGLOBAL", city:  "LOS ANGELES", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "LOS ANGELES", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "LOS ANGELES", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "LOS ANGELES", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"DUNCAN & SONS", city:  "PHOENIX", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"DUNCAN & SONS", city:  "PHOENIX", containerNumber:"NA", type: "DC", size:"4H"},
+
+{facility:"CONGLOBAL", city:  "PORTLAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "PORTLAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "PORTLAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL", city:  "PORTLAND", containerNumber:"NA", type: "DC", size:"4H"},
+
+{facility:"CONGLOBAL ", city:  "OAKLAND", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"CONGLOBAL ", city:  "OAKLAND", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL ", city:  "OAKLAND", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"CONGLOBAL", city:  "SEATTLE", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"20"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"20"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"45"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"45"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"45"}
+
+
+
+
+            ],
+            tab2: [
+                { city: "ATLANTA", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "CHARLESTON", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "SAVANNAH", containerNumber: "ZZZZ1234567", type: "DC", size: "4H" },
+                { city: "CHICAGO", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "CLEVELAND", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "COLUMBUS", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "CINCINNATI", containerNumber: "ZZZZ1234567", type: "DC", size: "4H" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "4H" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "4H" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "4H" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "4H" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "4H" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" },
+                { city: "USATL", containerNumber: "ZZZZ1234567", type: "DC", size: "40" }
+            ],
+            tab3: [
+                
+            ],
+            tab4: [
+                {facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"40"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"4H"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"45"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"45"},
+{facility:"WASHINGTON TERMINAL", city:  "TACOMA", containerNumber:"NA", type: "DC", size:"45"}
+            ]
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const tabs = document.querySelectorAll("nav ul li a");
+            const tableWindow = document.getElementById("tableWindow");
+            const dataTable = document.getElementById("dataTable").querySelector("tbody");
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", function(event) {
+                    event.preventDefault();
+
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove("active"));
+
+                    // Add active class to the clicked tab
+                    this.classList.add("active");
+
+                    // Get data for the selected tab
+                    const tabId = this.getAttribute("id");
+                    const tabData = data[tabId];
+
+                    // Clear previous table rows
+                    dataTable.innerHTML = "";
+
+                    // Populate table with data
+                    tabData.forEach(entry => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${entry.facility}</td>
+                            <td>${entry.city}</td>
+                            <td>${entry.containerNumber}</td>
+                            <td>${entry.size}</td>
+                            <td>${entry.type}</td>
+                        `;
+                        dataTable.appendChild(row);
+                    });
+
+                    // Do not scroll to top of table window
+                });
+            });
+
+            // Initially show data for the first tab
+            tabs[0].click();
+        });
+    </script>
+</body>
+</html>
